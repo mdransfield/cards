@@ -2,7 +2,25 @@
 
 (in-package #:cards)
 
-(defconstant *standard-deck*
+(defun cardp (c)
+  "Predicate true when C is a valid playing card."
+  (and (characterp c)
+       (<= (char-code #\PLAYING_CARD_ACE_OF_SPADES)
+	   (char-code c)
+	   (char-code #\PLAYING_CARD_WHITE_JOKER))))
+
+(deftype card ()
+  `(satisfies cardp))
+
+(defclass deck ()
+  ((cards :accessor cards
+	  :initarg :cards
+	  :initform (make-shuffled-cards))
+   (top :accessor top
+	:initarg :top
+	:initform 0)))
+
+(defconstant standard-cards
   (make-array 52 :element-type 'character
 		 :initial-contents '(#\PLAYING_CARD_ACE_OF_SPADES
 				     #\PLAYING_CARD_TWO_OF_SPADES
@@ -57,8 +75,8 @@
 				     #\PLAYING_CARD_QUEEN_OF_CLUBS
 				     #\PLAYING_CARD_KING_OF_CLUBS)))
 
-(defun make-shuffled-deck (&optional (source *standard-deck*))
-  "Make a newly shuffled deck of cards based on SOURCE.
+(defun make-shuffled-cards (&optional (source standard-cards))
+  "Make a newly shuffled array of cards based on SOURCE.
 With no SOURCE parameter supplied will make a standard 52 card
 deck. Uses the Fisher-Yates \"inside-out\" algorithm from Wikipedia:
 http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_.22inside-out.22_algorithm."
