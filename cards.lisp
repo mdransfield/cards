@@ -21,6 +21,7 @@
 	:initarg :top
 	:initform 0)))
 
+<<<<<<< HEAD
 (defclass standard-pack (pack)
   ((cards :accessor cards
 	  :initform (make-array 52 :element-type 'card
