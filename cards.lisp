@@ -21,7 +21,6 @@
 	:initarg :top
 	:initform 0)))
 
-<<<<<<< HEAD
 (defclass standard-pack (pack)
   ((cards :accessor cards
 	  :initform (make-array 52 :element-type 'card
@@ -147,3 +146,4 @@ The algorithm is this:
 	for s = (+ si i)
 	do (psetf (aref arr f) (aref arr s)
 		  (aref arr s) (aref arr f))))
+
